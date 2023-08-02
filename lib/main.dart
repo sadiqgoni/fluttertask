@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertask/index.dart';
+import 'package:fluttertask/screens/home_page.dart';
 import 'package:sizer/sizer.dart';
+import 'builder/category_provider.dart';
+import 'builder/lesson_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(Sizer(builder: (context, orientation, deviceType) {
-    return MyApp();
+    return   MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProgramProvider()),
+        ChangeNotifierProvider(create: (_) => LessonProvider()),
+      ],
+      child: MyApp(),
+    );
   }));
 }
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
+    return const MaterialApp(
+      home: MyHomePage(),
     );
   }
 }
+
+
